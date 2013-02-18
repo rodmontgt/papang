@@ -1,18 +1,40 @@
 ﻿package
 {
    import flash.display.MovieClip;
+   import flash.ui.Keyboard;
+   import flash.events.KeyboardEvent;
    
-   public class VerticalShoot extends MovieClip
+   public class DisparadorVertical extends MovieClip
    {
-      public function VerticalShoot()
+      private const PASOS : uint = 5;
+      
+      public function DisparadorVertical()
       {
-         stopAnim();
+         detenerAnimaciones();
+         agregarListeners();
       }
       
-      private function stopAnim() : void
+      private function detenerAnimaciones() : void
       {
-         knight.body.stop();
-         knight.legs.stop();
+         caballero.cuerpo.stop();
+         caballero.piernas.stop();
+      }
+      
+      private function agregarListeners() : void
+      {
+         stage.addEventListener(KeyboardEvent.KEY_DOWN, revisarInteraccion);
+      }
+
+      private function revisarInteraccion(evento : KeyboardEvent) : void
+      {
+         if(evento.keyCode == Keyboard.LEFT)
+         {
+            caballero.x -= PASOS;
+         }
+         else if(evento.keyCode == Keyboard.RIGHT)
+         {
+            caballero.x += PASOS;
+         }
       }
    }
 }
